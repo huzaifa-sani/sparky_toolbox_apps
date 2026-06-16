@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.trinfjhtechsolutions.sparkytoolbox"
+    namespace = "com.trinfjhtechsolutions.sparkytools"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -40,7 +40,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.trinfjhtechsolutions.sparkytoolbox"
+        applicationId = "com.trinfjhtechsolutions.sparkytools"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
