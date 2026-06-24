@@ -70,7 +70,6 @@ class DwellingController extends GetxController {
     update();
   }
 
-  // ✅ special character সরানোর helper
   String _sanitizeForPdf(String text) {
     return text
         .replaceAll('>=', '>=')
@@ -156,7 +155,7 @@ class DwellingController extends GetxController {
               pw.Divider(),
               pw.SizedBox(height: 8),
               pw.Text(
-                _sanitizeForPdf(resultBreakdown), // ✅ sanitize করা হচ্ছে
+                _sanitizeForPdf(resultBreakdown),
                 style: const pw.TextStyle(fontSize: 12, lineSpacing: 5),
               ),
               pw.Spacer(),
@@ -273,7 +272,6 @@ class DwellingController extends GetxController {
         .where((v) => v > 0)
         .toList();
 
-    // ✅ শুধু 500va বা তার বেশি appliance count হবে
     final int countableAppliances = appVAs.where((va) => va >= 500).length;
 
     double demandVA = 0.0;
@@ -368,7 +366,7 @@ class DwellingController extends GetxController {
 
     double rawEvVA = 0.0;
     for (final c in evChargerControllers) rawEvVA += d(c);
-    final double evResult = rawEvVA * 1.25;
+    final double evResult = rawEvVA * 1.0;
 
     final double totalLoad  = lightingResult + netDryerVA + rangeResult + applianceResult + hvacFinalLoad + netMotorVA + motorIncr + evResult;
     final double serviceAmps = totalLoad / 240.0;
@@ -384,7 +382,7 @@ class DwellingController extends GetxController {
       ..writeln('Other Motor Loads (100%): ${netMotorVA.toStringAsFixed(0)} VA')
       ..writeln('HVAC Load (${acGoverns ? "A/C" : "Heat"} governs): ${hvacFinalLoad.toStringAsFixed(0)} VA')
       ..writeln('Largest Motor Increase (+25% on $largestMotorName): ${motorIncr.toStringAsFixed(0)} VA')
-      ..writeln('EV Charger (125%): ${evResult.toStringAsFixed(0)} VA')
+      ..writeln('EV Charger (100%): ${evResult.toStringAsFixed(0)} VA')
       ..writeln('----------------------------')
       ..writeln('TOTAL SERVICE LOAD: ${totalLoad.toStringAsFixed(0)} VA');
 
