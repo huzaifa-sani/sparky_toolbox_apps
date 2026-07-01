@@ -34,6 +34,7 @@ class DwellingScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
                   16.height,
 
                   Row(
@@ -119,10 +120,11 @@ class DwellingScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+
                   20.height,
 
-                  // ── A/C Units ─────────────────────────────────
                   const CommonText(text: 'A/C Units (Tons)', bottom: 20),
+
                   ...List.generate(controller.acUnitCount, (index) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 20),
@@ -145,6 +147,7 @@ class DwellingScreen extends StatelessWidget {
                       ),
                     );
                   }),
+
                   CommonButton(
                     titleText: 'Add A/C Unit',
                     buttonRadius: 30,

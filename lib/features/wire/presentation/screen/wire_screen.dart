@@ -93,7 +93,6 @@ class WireScreen extends StatelessWidget {
                         labelText: 'Ambient Temp',
                         readOnly: true,
                         suffixIcon: PopUpMenu(
-                          // ✅ FIXED: ambientTempDisplay akhon clean values dey
                           items: controller.ambientTempDisplay,
                           selectedItem: [controller.ambientTempController.text],
                           onTap: controller.onChangeAmbientTemp,
@@ -107,7 +106,6 @@ class WireScreen extends StatelessWidget {
                         labelText: 'Conductor Count',
                         readOnly: true,
                         suffixIcon: PopUpMenu(
-                          // ✅ FIXED: conductorCountDisplay akhon clean values dey
                           items: controller.conductorCountDisplay,
                           selectedItem: [controller.conductorCountController.text],
                           onTap: controller.onChangeConductorCount,
@@ -179,12 +177,19 @@ class WireScreen extends StatelessWidget {
                         12.height,
                         _ResultRow(
                           index: '2',
+                          label: 'Ambient Correction Factor',
+                          value: controller.result!.correctionFactor,
+                          isHighlighted: true,
+                        ),
+                        12.height,
+                        _ResultRow(
+                          index: '3',
                           label: 'Derated Ampacity',
                           value: controller.result!.deratedAmpacity,
                         ),
                         12.height,
                         _ResultRow(
-                          index: '3',
+                          index: '4',
                           label: 'Terminal-Limited Ampacity',
                           value: controller.result!.terminalLimitedAmpacity,
                         ),
@@ -197,13 +202,13 @@ class WireScreen extends StatelessWidget {
                         ),
                         12.height,
                         _ResultRow(
-                          index: '4',
+                          index: '5',
                           label: 'Down to Next Standard OCPD',
                           value: controller.result!.ocpdDown,
                         ),
                         12.height,
                         _ResultRow(
-                          index: '5',
+                          index: '6',
                           label: 'Up to Next Standard OCPD',
                           value: controller.result!.ocpdUp,
                         ),

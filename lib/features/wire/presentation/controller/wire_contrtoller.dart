@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 class AmpacityResult {
   final String insulationBaseAmpacity;
+  final String correctionFactor;
   final String deratedAmpacity;
   final String terminalLimitedAmpacity;
   final String maxOCPDSize;
@@ -12,6 +13,7 @@ class AmpacityResult {
 
   AmpacityResult({
     required this.insulationBaseAmpacity,
+    required this.correctionFactor,
     required this.deratedAmpacity,
     required this.terminalLimitedAmpacity,
     required this.maxOCPDSize,
@@ -81,18 +83,22 @@ const Map<String, Map<String, double>> nec2404DLimits = {
 };
 
 const Map<String, String> ambientTempDisplayMap = {
-  '15°C (59°F) is 1.20':  '15°C (59°F)',
-  '20°C (68°F) is 1.15':  '20°C (68°F)',
-  '25°C (77°F) is 1.11':  '25°C (77°F)',
-  '30°C (86°F) is 1.00':  '30°C (86°F)',
-  '40°C (95°F) is 0.94':  '40°C (95°F)',
-  '45°C (105°F) is 0.88': '45°C (105°F)',
-  '50°C (113°F) is 0.82': '50°C (113°F)',
-  '55°C (122°F) is 0.75': '55°C (122°F)',
-  '60°C (131°F) is 0.67': '60°C (131°F)',
-  '65°C (140°F) is 0.58': '65°C (140°F)',
-  '70°C (149°F) is 0.47': '70°C (149°F)',
-  '75°C (158°F) is 0.33': '75°C (158°F)',
+  '10°C (50°F)':  '10°C (50°F)',
+  '15°C (59°F)':  '15°C (59°F)',
+  '20°C (68°F)':  '20°C (68°F)',
+  '25°C (77°F)':  '25°C (77°F)',
+  '30°C (86°F)':  '30°C (86°F)',
+  '35°C (95°F)':  '35°C (95°F)',
+  '40°C (104°F)': '40°C (104°F)',
+  '45°C (113°F)': '45°C (113°F)',
+  '50°C (122°F)': '50°C (122°F)',
+  '55°C (131°F)': '55°C (131°F)',
+  '60°C (140°F)': '60°C (140°F)',
+  '65°C (149°F)': '65°C (149°F)',
+  '70°C (158°F)': '70°C (158°F)',
+  '75°C (167°F)': '75°C (167°F)',
+  '80°C (176°F)': '80°C (176°F)',
+  '85°C (185°F)': '85°C (185°F)',
 };
 
 const Map<String, String> conductorCountDisplayMap = {
@@ -105,19 +111,52 @@ const Map<String, String> conductorCountDisplayMap = {
   '41+ is 0.35':   '41+',
 };
 
-const Map<String, double> ambientCorrectionFactors = {
-  '15°C (59°F)':  1.20,
-  '20°C (68°F)':  1.15,
-  '25°C (77°F)':  1.11,
-  '30°C (86°F)':  1.00,
-  '40°C (95°F)':  0.94,
-  '45°C (105°F)': 0.88,
-  '50°C (113°F)': 0.82,
-  '55°C (122°F)': 0.75,
-  '60°C (131°F)': 0.67,
-  '65°C (140°F)': 0.58,
-  '70°C (149°F)': 0.47,
-  '75°C (158°F)': 0.33,
+const Map<String, Map<String, double>> ambientCorrectionFactorsTable = {
+  '60°C': {
+    '10°C (50°F)': 1.29,
+    '15°C (59°F)': 1.22,
+    '20°C (68°F)': 1.15,
+    '25°C (77°F)': 1.08,
+    '30°C (86°F)': 1.00,
+    '35°C (95°F)': 0.91,
+    '40°C (104°F)': 0.82,
+    '45°C (113°F)': 0.71,
+    '50°C (122°F)': 0.58,
+    '55°C (131°F)': 0.41,
+  },
+  '75°C': {
+    '10°C (50°F)': 1.20,
+    '15°C (59°F)': 1.15,
+    '20°C (68°F)': 1.11,
+    '25°C (77°F)': 1.05,
+    '30°C (86°F)': 1.00,
+    '35°C (95°F)': 0.94,
+    '40°C (104°F)': 0.88,
+    '45°C (113°F)': 0.82,
+    '50°C (122°F)': 0.75,
+    '55°C (131°F)': 0.67,
+    '60°C (140°F)': 0.58,
+    '65°C (149°F)': 0.47,
+    '70°C (158°F)': 0.33,
+  },
+  '90°C': {
+    '10°C (50°F)': 1.15,
+    '15°C (59°F)': 1.12,
+    '20°C (68°F)': 1.08,
+    '25°C (77°F)': 1.04,
+    '30°C (86°F)': 1.00,
+    '35°C (95°F)': 0.96,
+    '40°C (104°F)': 0.91,
+    '45°C (113°F)': 0.87,
+    '50°C (122°F)': 0.82,
+    '55°C (131°F)': 0.76,
+    '60°C (140°F)': 0.71,
+    '65°C (149°F)': 0.65,
+    '70°C (158°F)': 0.58,
+    '75°C (167°F)': 0.50,
+    '80°C (176°F)': 0.41,
+    '85°C (185°F)': 0.29,
+  },
 };
 
 const Map<String, double> bundleAdjustmentFactors = {
@@ -189,6 +228,7 @@ class WireController extends GetxController {
     sizeController.text             = customAmpacityTable['Copper']!.keys.first;
     insulRatingController.text      = '60°C';
     ambientTempController.text      = '30°C (86°F)';
+    _selectedAmbientKey             = '30°C (86°F)';
     conductorCountController.text   = '1-3';
     breakerTempLimitController.text = '75°C';
   }
@@ -216,11 +256,9 @@ class WireController extends GetxController {
   }
 
   void onChangeAmbientTemp(int index) {
-
     final cleanText = ambientTempDisplayMap.values.elementAt(index);
-    final rawKey    = ambientTempDisplayMap.keys.elementAt(index);
     ambientTempController.text = cleanText;
-    _selectedAmbientKey        = ambientTempDisplayMap[rawKey]!;
+    _selectedAmbientKey        = cleanText;
     result = null;
     update();
   }
@@ -273,7 +311,16 @@ class WireController extends GetxController {
     }
 
     final double insulationBaseAmp = wireSizeData[selectedInsul] ?? 0.0;
-    final double ambientFactor     = ambientCorrectionFactors[_selectedAmbientKey] ?? 1.0;
+
+    final Map<String, double>? factorsForInsul = ambientCorrectionFactorsTable[selectedInsul];
+    final double? ambientFactor = factorsForInsul?[_selectedAmbientKey];
+
+    if (ambientFactor == null) {
+      errorMessage = 'Ambient temperature $_selectedAmbientKey is not allowed for $selectedInsul insulation.';
+      update();
+      return;
+    }
+
     final double bundleFactor      = bundleAdjustmentFactors[_selectedBundleKey]   ?? 1.0;
     final double fullyDeratedAmp   = insulationBaseAmp * ambientFactor * bundleFactor;
     final double roundedDeratedAmp = double.parse(fullyDeratedAmp.toStringAsFixed(1));
@@ -313,6 +360,7 @@ class WireController extends GetxController {
 
     result = AmpacityResult(
       insulationBaseAmpacity:  '${insulationBaseAmp.toStringAsFixed(0)} A ($selectedInsul)',
+      correctionFactor:        ambientFactor.toString(),
       deratedAmpacity:         '${roundedDeratedAmp.toStringAsFixed(1)} A',
       terminalLimitedAmpacity: '${terminalLimitAmp.toStringAsFixed(0)} A ($breakerTemp)',
       maxOCPDSize:             '$ocpdDown A',

@@ -6,6 +6,7 @@ import '../../utils/log/app_log.dart';
 import 'storage_keys.dart';
 
 class LocalStorage {
+
   LocalStorage._();
 
   /// SharedPreferences instance
@@ -24,7 +25,6 @@ class LocalStorage {
   /// Load all saved data from SharedPreferences
   static Future<void> _loadAllData() async {
     isAgree = _storage.getBool(LocalStorageKeys.isAgree) ?? false;
-
     appLog(isAgree, source: 'LocalStorage');
   }
 
@@ -37,10 +37,6 @@ class LocalStorage {
     isAgree = value;
     await _storage.setBool(LocalStorageKeys.isAgree, value);
   }
-
-
-
-
   /// Logout user, clear storage and disconnect socket
   static Future<void> logout() async {
     Get.offAllNamed(AppRoutes.home);
