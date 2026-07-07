@@ -19,6 +19,7 @@ class LocalStorage {
     await _loadAllData();
   }
 
+  // d
   /// Get storage instance
   static SharedPreferences get _storage => _preferences!;
 
