@@ -98,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                               } else {
                                 // Debug করার জন্য
                                 debugPrint('Could not launch $url');
-                                Get.snackbar('Error', 'Could not open link');
+                                Get.snackbar('Message', 'Could not open link');
                               }
                             },
                           ),

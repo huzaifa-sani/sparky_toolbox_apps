@@ -1,4 +1,4 @@
 class LocalStorageKeys {
-  static const String isAgree = 'isAgree';
-
+  static const String isAgree = 'isAg=ree';
+// sks
 }
